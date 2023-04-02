@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-kubernetes-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: "adminer.yourdomain.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: adminer-service
+            port:
+              number: 80          
+  - host: "hw1.yourdomain.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: hello-kubernetes-first
+            port:
+              number: 80
+  - host: "hw2.yourdomain.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: hello-kubernetes-second
+            port:
+              number: 80                    
+  - host: "swimmpair.yourdomain.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: swimmpair-service
+            port:
+              number: 80

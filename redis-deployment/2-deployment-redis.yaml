@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  ports:
+  - port: 6379
+  selector:
+    app: redis
+  clusterIP: None
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        command: ["redis-server"]
+        args:
+        - "--save"
+        - "20"
+        - "1"
+        - "--loglevel"
+        - "warning"
+        - "--requirepass"
+        - "cGFzc3dvcmQ="
+        #args:
+        #  - "--requirepass"
+        #  - "${REDIS_PASSWORD}"
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      volumes:
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: redis-pvc
