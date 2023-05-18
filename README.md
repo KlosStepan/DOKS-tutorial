@@ -1,32 +1,18 @@
 # DigitalOcean Kubernetes production Cluster
-Description of DOKS setup and tools/applications w/ its configurations.  
+Description of our DOKS setup and tools/applications w/ configurations and brief tutorials.  
 
-**!!! All stuff is my own configs/setup notes. I can't guarantee that everything is 100% correct&safe for production.**
+**-> All the stuff comes without warranty! Think twice about any configuration or approach here!**
 ## Setup Overview 
-We use DigitalOcean Managed Kubernetes in Amsterdam (Datacenter 3/AMS3). The setup is following:
+We use DigitalOcean Managed Kubernetes (in Amsterdam Datacenter 3/AMS3).  
+The setup is following:
 - Kubernetes Cluster w/ **2 Node** workers **s-1vcpu-2gb-intel**, 
 - **DigitalOcean Load Balancer** for accepting traffic - incoming HTTP requests,
-- **Ingress Controller** w/ nginx in for routing traffic within Cluster into Kubernetes Services.  
+- **Ingress Controller** w/ nginx for routing traffic within Cluster into Kubernetes Services.  
 
 We use [**Kubernetes Dashboard**](https://github.com/kubernetes/dashboard), [**Lens**](https://k8slens.dev/desktop.html) (via kubectl) and [**kubectl**](https://kubernetes.io/docs/tasks/tools/) for monitoring and adminsitration. Majority of application administration is performed by applying config files in following manner 
 `kubectl apply -f kubernetes-ingress-config.yaml`. Overview is carried on either in GUI or by querying via **kubectl**, such as `kubectl get nodes`, `kubectl get deployments` or `kubectl describe ingress hello-kubernetes-ingress`.  
 ___  
-## Kubernetes Objects - general basic must-know
-### Cluster Architecture
-- Nodes - Master Node, Worker Nodes, (The Kubernetes API)
-### Workload
-- Deployments - define Pods and ReplicaSets
-### Services, Load Balancing, and Networking
-- Ingress
-- Service (port, targetPort)
-### Storage
-- Volume - Persistent Volume
-- Persistent Volume Claim
-### Configuration
-- Secret
-### Tasks
-- HorizontalPodAutoscaler - attached to Deployment
-___ 
+
 ## Our K8s cluster overview
 1. <u>Cluster Visualization</u> - blue components are either external (DNS Services, Load Balancer / DBs or Image Registry) or added to the cluster later (Ingress). It shows architecture of **MySQL** & **Redis** databases in cluster and one PHP app utilizing it. Orange color is used for external communication/traffic.
 2. <u>Running cluster architecture</u> - 1 DOKS (Master) & 2 Nodes (2nd+ nodes are optional - therefore blue).
@@ -51,15 +37,31 @@ ___
     - **3-service-redis.yaml** - Expose as **redis-service** port 6379.
  - ~~**Prometheus monitoring**~~ - IN THE PROCESS. 1-Click app [DOKS Helm package bugged](https://marketplace.digitalocean.com/apps/kubernetes-monitoring-stack).
 
-## Detailed installation of Database README.md tutorial in:
-- mysql-deployment/README.md,
-- redis-deployment/README.md.
+## Detailed installation of Databases - steps in READMEs:
+- [mysql-deployment/README.md](https://github.com/KlosStepan/DOKS-tutorial/tree/main/mysql-deployment),
+- [redis-deployment/README.md](https://github.com/KlosStepan/DOKS-tutorial/tree/main/redis-deployment).
 
 # App Configs - run in K8s cluster
-- **adminer.yaml** - Adminer tool from up. //<- use this
-- **app-hello-kubernetes-first.yaml** - Dummy application 1. //<- use this
-- **app-hello-kubernetes-second.yaml** - Dummy application 2. //<- use this
-- ~~**app-swimmpair.yaml** - **Production**~~ SwimmPair - example of LAMP web application w/ all necessary services. //<- don't use this
+- **adminer.yaml** - Adminer tool from up. // <- use this
+- **app-hello-kubernetes-first.yaml** - Dummy application 1. // <- use this
+- **app-hello-kubernetes-second.yaml** - Dummy application 2. // <- use this
+- ~~**app-swimmpair.yaml** - **Production**~~ SwimmPair - example of LAMP web application w/ all necessary services. // <- don't use this
+___ 
+## Kubernetes Objects - general basic must-know
+### Cluster Architecture
+- Nodes - Master Node, Worker Nodes, (The Kubernetes API)
+### Workload
+- Deployments - define Pods and ReplicaSets
+### Services, Load Balancing, and Networking
+- Ingress
+- Service (port, targetPort)
+### Storage
+- Volume - Persistent Volume
+- Persistent Volume Claim
+### Configuration
+- Secret
+### Tasks
+- HorizontalPodAutoscaler - attached to Deployment
 
 
 
