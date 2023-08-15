@@ -41,7 +41,7 @@ Create JSON with authentication token.
     }
 }
 ```
-Create Kubernetes Secret from `dockerhub-cred-pull.json` in your Cluster.
+Create Kubernetes Secret [^3] from `dockerhub-cred-pull.json` in your Cluster.
 ```zsh
 kubectl create secret generic dockerhub-cred-pull \ 
     --from-file=.dockerconfigjson=/Users/you/projects/app/dockerhub-cred-pull.json \
