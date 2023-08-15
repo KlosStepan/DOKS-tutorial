@@ -1,5 +1,5 @@
 # Deploy image from private repository into your cluster
-We will show you how to deploy `Docker image` [^1] from private repository to you cluster. Default space for obtaining images is [Dockerhub](https://dockerhub.com) which doesn't require:
+We will show you how to deploy `Docker image` from private repository to you cluster [^1]. Default space for obtaining images is [Dockerhub](https://dockerhub.com) which doesn't require:
 -  neither repository address specification, i.e. images are pullable as `docker pull redis`,
 - nor any login - i.e. "just pull it as it is",
 
