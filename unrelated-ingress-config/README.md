@@ -3,7 +3,9 @@ Configure cluster for web application with frontend and backend on difrerent add
 - frontend on `/`,
 - backend on `/backend`.
 
- Using such configuration ensures `Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "text/html"` won't appear since we rewrite all requests correctly. 
+ Using such configuration ensures `Failed to load module script: Expected a JavaScript module script but the server responded with a MIME type of "text/html"` won't appear since we rewrite all requests correctly.
+ 
+ This problem is discussed in Ticket **Ingress changes original content type #5265** [^1].
  
 `ingress-config.yaml`
 ```yaml
@@ -34,5 +36,5 @@ spec:
             port:
               number: 80
 ```
-___
-- Ingress changes original content type #5265 https://github.com/kubernetes/ingress-nginx/issues/5265
+
+[^1]: https://github.com/kubernetes/ingress-nginx/issues/5265
