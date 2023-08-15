@@ -21,7 +21,7 @@ docker login
 docker push stepanklos/private-image
 ```
 ## 2. Prepare login mechanism for Kubernetes-Dockerhub
-To pull from private repository, you first need to be authenticated with Dockerhub. To achieve that, you either can use pair `e-mail/password`, which is obviously giving you access over whole Dockerhub account with all privileges. You can also create something called `Access Token` [^1] for performing specific restricted operations as `e-mail/token` in order to store it as `Kubernetes Secret` [^2] and use it for authentication while pulling in `Deployment`.
+To pull from private repository, you first need to be authenticated with Dockerhub. To achieve that, you either can use pair `e-mail/password`, which is obviously giving you access over whole Dockerhub account with all privileges. You can also create something called `Access Token` [^2] for performing specific restricted operations as `e-mail/token` in order to store it as `Kubernetes Secret` [^3] and use it for authentication while pulling in `Deployment`.
 ### Generate Access Token
 Please navigate to `Security` section in your `Account Settings` and click `New Access Token`
 <p align="center">
@@ -41,7 +41,7 @@ Create JSON with authentication token.
     }
 }
 ```
-Create Kubernetes Secret [^3] from `dockerhub-cred-pull.json` in your Cluster.
+Create Kubernetes Secret from `dockerhub-cred-pull.json` in your Cluster.
 ```zsh
 kubectl create secret generic dockerhub-cred-pull \ 
     --from-file=.dockerconfigjson=/Users/you/projects/app/dockerhub-cred-pull.json \
